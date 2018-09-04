@@ -5,7 +5,9 @@ class SpotifyPlayer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playing: false
+      playing: false,
+      artist: '',
+      track: ''
     };
   }
 
@@ -17,11 +19,23 @@ class SpotifyPlayer extends Component {
 
   onPlayerStateChanged(spotifyPlayerState) {
     console.log(spotifyPlayerState);
-    this.setState({ playing: !spotifyPlayerState.paused });
+    this.setState({
+      playing: !spotifyPlayerState.paused,
+      artist: spotifyPlayerState.track_window.current_track.artists.map((x) => x.name).join(','),
+      track: spotifyPlayerState.track_window.current_track.name
+    });
   }
 
   render() {
-    return <h1>{this.state.playing ? <div>Player is playing</div> : <div>Player is paused</div>}</h1>;
+    if (this.state.playing) {
+      return (
+        <h1>
+          Playing {this.state.track} by {this.state.artist}
+        </h1>
+      );
+    } else {
+      return <h1>Paused</h1>;
+    }
   }
 }
 
