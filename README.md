@@ -1,2 +1,5 @@
 # react-spotify-player
 Playing around with React, try to make a basic web based Spotify player
+
+## How to Run
+`yarn start`
